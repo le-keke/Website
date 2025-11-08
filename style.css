@@ -7,6 +7,16 @@ head, body {
   margin: 0;
 }
 
+/* Prevent FOUC and layout shift during load */
+body {
+  opacity: 0;
+  transition: opacity 0.3s ease-in;
+}
+
+body.loaded {
+  opacity: 1;
+}
+
 body::-webkit-scrollbar {
   display: none;
 }
