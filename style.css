@@ -11,6 +11,9 @@ head, body {
 body {
   opacity: 0;
   transition: opacity 0.1s;
+  /* Prevent bounce scrolling on Safari */
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
 }
 
 body.loaded {
@@ -19,6 +22,11 @@ body.loaded {
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+html {
+  /* Prevent bounce scrolling on Safari */
+  overscroll-behavior-y: none;
 }
 
 a:link {
@@ -59,6 +67,9 @@ p,h1,h2,h3,h4,h5,h6 {
   justify-content: space-between;
   padding: 40px 6% 40px 4%;
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1;
   mix-blend-mode: exclusion;
 }
@@ -275,6 +286,8 @@ p,h1,h2,h3,h4,h5,h6 {
   position: fixed;
   z-index: 1;
   bottom: 30px;
+  left: 0;
+  right: 0;
   mix-blend-mode: exclusion;
   font-size: 24px;
   font-weight: 400;
