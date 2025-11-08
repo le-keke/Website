@@ -10,7 +10,7 @@ head, body {
 /* Prevent FOUC and layout shift during load */
 body {
   opacity: 0;
-  transition: opacity 0.3s ease-in;
+  transition: opacity 0.1s;
 }
 
 body.loaded {
@@ -203,7 +203,7 @@ p,h1,h2,h3,h4,h5,h6 {
 #research_body {
   display: flex;
   flex-direction: column;
-  padding: 200px 4% 120px 8%;
+  padding: 200px 4% 200px 6%;
   width: auto;
   height: auto;
 }
@@ -217,18 +217,19 @@ p,h1,h2,h3,h4,h5,h6 {
   font-size: 15px;
   font-weight: 400;
   line-height: 1.4;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   width: inherit;
   color: #111;
 }
 
 .item_year {
-  flex: 1 1;
+  /*flex: 1 1;*/
+  padding-right: 60px;
 }
 
 .item_title {
   flex: 5 5;
-  padding-left: 70px;
+  /*padding-left: 70px;*/
 }
 
 .item_tag {
@@ -905,7 +906,6 @@ p,h1,h2,h3,h4,h5,h6 {
   }
   .item_title {
     flex: 6 6;
-    padding-left: 20px;
   }
   .item_tag {
     display: none;
