@@ -2,7 +2,7 @@
 alwaysApply: true
 ---
 **必读**
-1.该项目是我的个人作品集网站,源码已推送至github https://github.com/le-keke/le-keke.github.io.git 进行维护和更新,部署在vercel上 project ID: prj_6cUZgTT5OW0WEVZz7cAJLIAMyQJA 
+1.该项目是我的个人作品集网站,源码已推送至github git@github.com:le-keke/Website.git 进行维护和更新,部署在vercel上 project ID: prj_6cUZgTT5OW0WEVZz7cAJLIAMyQJA 
 2.网站代码基本由个人完成,后续根据新增作品项目进行人工增加即可
 3.当输入“推送git”指令时,将项目推送至git仓库,并同步更新vercel
 4.同时会对目前网页进行细节上的优化,你是一个专业的前端开发工程师,精通html/css/javascript/three.js/webgl等,协助我完成关于优化要求的开发工作,每次任务后不需要将过程再review一边,只需要返回“成功”即可
