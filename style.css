@@ -425,6 +425,16 @@ p,h1,h2,h3,h4,h5,h6 {
   margin: 0;
 }
 
+.detail_bg_tbvp_grey {
+  background-color: #ddd;
+  margin: 0;
+}
+
+.detail_bg_tbvp_dark {
+  background-color: #5F5F5F;
+  margin: 0;
+}
+
 .detail_container {
   display: flex;
   flex-direction: column;
@@ -476,7 +486,35 @@ p,h1,h2,h3,h4,h5,h6 {
   flex-direction: row;
   align-items:flex-start;
   width: 100%;
-  padding: 20px 0 120px 0;
+  padding: 0;
+}
+
+.spacing_bottom_lg {
+  margin-bottom: 60px;
+}
+
+.spacing_bottom_md {
+  margin-bottom: 40px;
+}
+
+.spacing_bottom_min {
+  margin-bottom: 20px;
+}
+
+.spacing_top_xlg {
+  margin-top: 120px;
+}
+
+.spacing_top_lg {
+  margin-top: 60px;
+}
+
+.spacing_top_md {
+  margin-top: 40px;
+}
+
+.spacing_top_min {
+  margin-top: 20px;
 }
 
 
@@ -508,7 +546,7 @@ p,h1,h2,h3,h4,h5,h6 {
   font-size: 16px;
   line-height: 1.4;
   font-weight: normal;
-  margin-right: 5%;
+  margin-right: 50px;
 }
 
 .line_img_annotation {
@@ -517,7 +555,7 @@ p,h1,h2,h3,h4,h5,h6 {
   font-size: 16px;
   line-height: 1.4;
   font-weight: normal;
-  margin-right: 5%;
+  margin-right: 50px;
 }
 
 .line_research_img {
@@ -525,7 +563,7 @@ p,h1,h2,h3,h4,h5,h6 {
   flex-direction: column;
   width: 100%;
   height: auto;
-  margin-right: 5%;
+  margin-right: 50px;
 }
 
 .line_research_img img {
@@ -659,6 +697,9 @@ p,h1,h2,h3,h4,h5,h6 {
   width: 100%;
 }
 
+.line_double_img_right video {
+  width: 100%;
+}
 
 .detail_end {
   display: flex;
@@ -775,7 +816,28 @@ p,h1,h2,h3,h4,h5,h6 {
   }
   .detail_line {
     flex-direction: column;
-    padding: 40px 0 40px 0;
+    padding: 0;    
+  }
+  .spacing_bottom_lg {
+    margin-bottom: 30px;
+  }
+  .spacing_bottom_md {
+    margin-bottom: 10px;
+  }
+  .spacing_bottom_min {
+    margin-bottom: 0;
+  }
+  .spacing_top_xlg {
+    margin-top: 60px;
+  }
+  .spacing_top_lg {
+    margin-top: 30px;
+  }
+  .spacing_top_md {
+    margin-top: 0;
+  }
+  .spacing_top_min {
+    margin-top: 0;
   }
   .line_img_annotation {
     font-size: 12px;
@@ -790,19 +852,15 @@ p,h1,h2,h3,h4,h5,h6 {
   .line_text_en h5 {
     font-size: 14px;
   }
-
   .line_text_en p {
     font-size: 14px;
   }
-
   .line_text_ch h5 {
     font-size: 14px;
   }
-
   .line_text_ch p {
     font-size: 14px;
   }
-
   .detail_line_image {
     margin: 0;
     width: 100%;
