@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Building A Design System for AIGUI</title>
+        <link rel="icon" href="../src/favicon.png">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+        <header class="header_container">
+                 <a href="../index.html" rel="home_page" class="logo">
+                    <img src="../src/logo-revised.png" class="logo_img rotate">
+                    <span class="logo_title">Keke Design</span>
+                </a>
+                <span class="copyright">© 2026 Keke LE Design</span>
+        </header>
+
+        <div class="detail_container detail_bg_light light_mode">
+            <div class="detail_content">
+                    <div class="detail_line spacing_bottom_lg" style="margin-top:300px">
+                        <div class="line_annotation">
+                            <p>2026.2</p>
+                            <p>Article (Excerpt) [EN]</p>
+                        </div>
+                        <div class="line_text_en">
+                            <h1>Building A Design System for AIGUI</h1>
+                        </div>
+                    </div>
+                    <div class="detail_line spacing_bottom_lg">
+                        <div class="line_annotation"></div>
+                        <div class="line_text_en">
+                            <h5>Key Words</h5>
+                            <p style="margin-bottom: 40px;">UI Generation, Design System Wiki, Multi-Agents Workflow</p>
+                            <h5>Summary</h5>
+                            <p>VersionAI Tmall - A Design System Specification for AI Models. Tmall Design is a design system developed specifically for the Tmall shopping app, one of the largest B2C e-commerce platforms in China.</p>
+                            <p>Unlike previous iterations, the version presented on this site is intended not only for human designers and developers, but more importantly for AI models. Its content structure, textual format, and communication logic have been translated to enable AI models to read and apply the specification. With AI assistance, users can reference this knowledge base to generate user interfaces that comply with Tmall's design specification (1), as well as conduct design evaluation and Q&A (2).</p>
+                            <p>By enabling a more efficient and advanced mode of human-AI collaborative design, the system supports scenarios such as recomposing existing designs, making incremental adjustments, and creating new interfaces step by step.</p>
+                        </div>
+                    </div>  
+                    <div class="detail_line spacing_bottom_lg">
+                        <div class="line_annotation"></div>
+                        <div class="line_text_en">
+                            <h5>Purpose</h5>  
+                            <p>In the daily workflow of design teams, deliverables generally fall into three categories: modules, single pages, and multi-page flows. When mapped to five major demand scenarios—core user journeys, content discovery channels, gamified engagement campaigns, marketing events, and B-end experiences—a year-round analysis reveals a consistent pattern</p>
+                            <p>Within core user journeys, discovery channels, and B-end experiences, design tasks that involve assembling or modifying existing components at the module or single-page level account for nearly 48% of all requests. This large volume of repetitive and structurally similar work highlights a strong need for automated, AI-driven interface generation to improve both efficiency and output quality.</p>
+                            <p>For enterprise design teams, the primary objective remains the same: generating product interfaces that strictly adhere to internal design standards. To achieve this, teams must clarify and construct an AI-readable design knowledge system that can be reliably connected to design tools or large language models.</p>
+                        </div>
+                    </div>
+                    <div class="detail_line spacing_bottom_lg">
+                        <div class="line_research_img">
+                            <img src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/aigui.png">
+                        </div>
+                        <div class="line_text_en">
+                            <h5>Design Solution</h5>
+                            <p>VersionAI Tmall interface generation is essentially a domain-specific intelligent system composed of multiple task-oriented agents. It operates within an enterprise-aligned design workflow and is driven by contextual reasoning and retrieval over Design System Specification Knowledge.</p>
+                            <p>Within this system, the workflow serves as the engineering foundation, connecting all stages from requirement input to interface output and ensuring both process determinism and outcome reliability. The multi-agent system functions as the cognitive core: guided by predefined system prompts, each agent interprets the output of the previous step, performs autonomous step-by-step reasoning, and passes structured results to the next stage. The agents are organized into four primary task roles: intent recognition, knowledge retrieval, design synthesis, and code generation.</p>
+                            <p>Design System Specification Knowledge serves as externally retrieved factual knowledge. Through a Design-to-Code (D2C) transformation, designs are converted into rule-based semantic facts, code-level symbolic facts, and structured mappings between them. Together, these form a structured design knowledge base that AI models can read, retrieve, and apply.</p>
+                            <p>The entire interface generation process is traceable, reproducible, and evolvable, with outcomes remaining controllable within the continuously evolving enterprise design system and codebase. The design effort focuses on two core areas: the construction of Design System Specification Knowledge and the design of the multi-agent workflow.</p>
+                            <h5>1. Design System Specification Knowledge</h5>
+                            <p>Design System Specification Knowledge consists of two categories of knowledge objects and three corresponding file types. The two categories of knowledge objects are styles and pages. Styles are further subdivided into four types: elements, layouts, components, and assets. Each knowledge object is associated with three file types: semantic rules, mapping schemas, and code implementations.</p>
+                            <p>Semantic rules are textual descriptions covering definitions, styles, variables, usage, and constraints. They represent the core intellectual property of the design system and are authored in Markdown format.</p>
+                            <p>Code implementations translate design objects into executable and deployable symbolic facts, using appropriate programming languages as representation formats.</p>
+                            <p>Mapping schemas act as the central connective layer between semantic rules and code implementations. Rather than duplicating either, they provide object ID anchoring, constraint definitions, and precise code references. Within the workflow, they guide knowledge retrieval, solution construction, and code generation, enabling large language models to avoid traversing the entire knowledge corpus and reducing computational overhead. Mapping schemas are represented in JSON format.</p>
+                            <p>The design team redesigned and reinterpreted the Tmall design specification, covering four types of elements, four types of layouts, two types of assets, thirteen types of components, and one page type.</p>
+                            <h5>2. Multi-Agents Workflow</h5>
+                            <p>The complete generation pipeline proceeds as follows:</p>
+                            <ol>
+                                <li>The user inputs a natural-language requirement.</li>
+                                <li>The request is processed by the intent recognition agent, which expands ambiguous input into a system-interpretable design intent and outputs a structured requirement description with explicit boundary conditions.</li>
+                                <li>The knowledge retrieval agent then uses Retrieval-Augmented Generation (RAG) to selectively retrieve highly relevant context from the Design System Specification Knowledge.</li>
+                                <li>The design synthesis agent evaluates and composes the retrieved specifications within the defined constraints, producing an intermediate structured data representation (Schema). This Schema explicitly describes page structure, components, styles, and content.</li>
+                                <li>Finally, the code generation agent re-queries the Design System Specification Knowledge based on the Schema, using targeted retrieval to locate corresponding code artifacts and generate production-ready UI output.</li>
+                            </ol>
+                            <p>Together, the Design System Specification Knowledge Base and the interface generation workflow form an integrated, AI-friendly enterprise design system. The system can be flexibly applied in IDE-based environments and agent-mode design tools via MCP or context injection.</p>
+                        </div>
+                    </div>  
+                    <div class="detail_line spacing_bottom_lg">
+                        <div class="line_annotation"></div>
+                        <div class="line_text_en">
+                            <h5>Outcomes & Impact</h5>
+                            <p>VersionAI Tmall is an AI-oriented design specification website that consolidates all of the knowledge described above. It supports interface generation compliant with the Tmall design specification, design review, and design-related Q&A.</p>
+                            <p>The site's information architecture mirrors the structure of the design system specification, organized as a tree-based navigation of styles, cases, and granular knowledge modules. Each module supports switching between human-readable rules and AI-readable prompts, as well as copying or downloading structured knowledge snippets. A dedicated deployment page provides guidance on invoking the specification through “tmall-design” MCP Server for interface generation.</p>
+                            <p>This comprehensive set of theory and practice offers broad applicability and can be adopted and reused by enterprise teams across industries. VersionAI Tmall has already been implemented in real-world projects, resulting in significant improvements in interface design efficiency.</p>
+                        </div>
+                    </div>  
+                <div class="detail_end">
+                    <div class="line_annotation">
+                        <div class="end_role">
+                            <h4>Author</h4>
+                            <p>Keke LE</p>
+                        </div>
+                        <div class="end_role">
+                            <h4>Published</h4>
+                            <p><a href="https://www.tmall-design.com/#blog/building-design-wiki-for-aigui">Full Article on VersionAI Tmall<span>→</span></a></p>
+                        </div>
+                    </div>
+                    <div class="end_copyright" style="color: #999999;">
+                        <p>Keke LE Design © All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="detail_footer_nav">
+                <div class="nav_left">
+                    <a href="../index.html"  class="in_light" style="margin-right: 50px;">Work</a>
+                    <a href="../research.html" class="in_light">Research</a>
+                </div>
+                <div>
+                    <a href="../about.html" class="in_light">About</a>
+                </div>
+        </footer>
+
+                <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        
+        <script>
+            // Wait for all content to be fully loaded and rendered
+            window.addEventListener('load', function() {
+                // Small delay to ensure layout is calculated
+                requestAnimationFrame(function() {
+                    requestAnimationFrame(function() {
+                        document.body.classList.add('loaded');
+                    });
+                });
+            });
+            
+            // Disable right-click context menu
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        </script>
+    </body>
+</html>
