@@ -83,9 +83,49 @@
         <![endif]-->
         
         <script>
-            // Wait for all content to be fully loaded and rendered
-            window.addEventListener('load', function() {
-                // Small delay to ensure layout is calculated
+            // Render on DOM ready, keep hero media sharp, defer below-the-fold media
+            document.addEventListener('DOMContentLoaded', function() {
+                var mediaNodes = document.querySelectorAll('.detail_cover img, .detail_cover video, .detail_content img, .detail_content video');
+                var videoObserver;
+                var supportsIO = 'IntersectionObserver' in window;
+
+                if (supportsIO) {
+                    videoObserver = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (!entry.isIntersecting) return;
+                            var video = entry.target;
+                            if (video.getAttribute('preload') === 'none') {
+                                video.setAttribute('preload', 'metadata');
+                                video.load();
+                            }
+                            videoObserver.unobserve(video);
+                        });
+                    }, { rootMargin: '300px 0px' });
+                }
+
+                mediaNodes.forEach(function(node, index) {
+                    var isCoverMedia = !!node.closest('.detail_cover');
+
+                    if (node.tagName === 'IMG') {
+                        if (!node.hasAttribute('decoding')) node.setAttribute('decoding', 'async');
+                        if (!node.hasAttribute('loading')) node.setAttribute('loading', isCoverMedia ? 'eager' : 'lazy');
+                        if (isCoverMedia && index === 0 && !node.hasAttribute('fetchpriority')) {
+                            node.setAttribute('fetchpriority', 'high');
+                        }
+                        return;
+                    }
+
+                    if (node.tagName === 'VIDEO') {
+                        var isCriticalVideo = isCoverMedia || index === 0;
+                        if (!node.hasAttribute('preload')) {
+                            node.setAttribute('preload', isCriticalVideo ? 'metadata' : 'none');
+                        }
+                        if (!isCriticalVideo && videoObserver) {
+                            videoObserver.observe(node);
+                        }
+                    }
+                });
+
                 requestAnimationFrame(function() {
                     requestAnimationFrame(function() {
                         document.body.classList.add('loaded');
