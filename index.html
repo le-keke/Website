@@ -209,13 +209,36 @@
         <![endif]-->
         
         <script>
-            // Wait for all content to be fully loaded and rendered
-            window.addEventListener('load', function() {
-                // Small delay to ensure layout is calculated
+            document.addEventListener('DOMContentLoaded', function() {
                 requestAnimationFrame(function() {
                     requestAnimationFrame(function() {
                         document.body.classList.add('loaded');
                     });
+                });
+
+                var warmed = {};
+                var pageLinks = document.querySelectorAll('a[href$=".html"]');
+
+                function warmPage(url) {
+                    if (!url || warmed[url] || url === window.location.href) return;
+                    if (url.indexOf(window.location.origin) !== 0) return;
+                    warmed[url] = true;
+
+                    var hint = document.createElement('link');
+                    hint.rel = 'prefetch';
+                    hint.as = 'document';
+                    hint.href = url;
+                    document.head.appendChild(hint);
+                }
+
+                pageLinks.forEach(function(link) {
+                    var href = link.getAttribute('href');
+                    if (!href) return;
+                    var url = new URL(href, window.location.href).href;
+
+                    link.addEventListener('mouseenter', function() { warmPage(url); }, { passive: true });
+                    link.addEventListener('focus', function() { warmPage(url); }, { passive: true });
+                    link.addEventListener('touchstart', function() { warmPage(url); }, { passive: true });
                 });
             });
             

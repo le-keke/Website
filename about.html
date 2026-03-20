@@ -346,9 +346,8 @@
         <![endif]-->
         
         <script>
-            // Wait for all content to be fully loaded and rendered
-            window.addEventListener('load', function() {
-                // Small delay to ensure layout is calculated
+            // Render page as soon as DOM is ready
+            document.addEventListener('DOMContentLoaded', function() {
                 requestAnimationFrame(function() {
                     requestAnimationFrame(function() {
                         document.body.classList.add('loaded');
