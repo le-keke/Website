@@ -223,18 +223,29 @@
   }
 
   // The moment the user commits to a navigation (pointerdown / click on a
-  // same-origin link), capture the frame each <video> is currently showing
-  // and stamp it onto the element as `poster`. If the browser later releases
-  // the decoded video buffer mid-navigation, the poster — the exact frame
-  // the user was looking at — fills in, so the thumbnail/cover appears to
-  // freeze in place rather than disappear or rewind to its first frame.
+  // same-origin link), capture the frame each on-screen <video> is currently
+  // showing and stamp it as a plain <img> overlay positioned exactly on top
+  // of that video. Because a static <img> in the DOM can't be torn down by
+  // the browser the way a <video>'s decoded frame can, the cover appears to
+  // freeze in place during the transition — no blanking on Safari, no
+  // rewind to first frame, no poster getting stuck after a back navigation.
   function freezeVideoFramesOnNavigation() {
-    function captureCurrentFrame(v) {
+    var FREEZE_CLASS = 'site_video_freeze';
+
+    function videoIsOnScreen(v) {
+      var rect = v.getBoundingClientRect();
+      var vh = window.innerHeight || 0;
+      return rect.bottom > 0 && rect.top < vh && rect.right > 0 && rect.width > 0;
+    }
+
+    function freezeOne(v) {
       if (!v || v.readyState < 2) return;
       if (!v.videoWidth || !v.videoHeight) return;
+      if (!videoIsOnScreen(v)) return;
+      if (v.__siteFrozen) return;
+      v.__siteFrozen = true;
+
       try {
-        // Downscale for snappier encoding; thumbnails are small on screen and
-        // a poster only ever appears for a fraction of a second.
         var scale = 0.5;
         var w = Math.max(1, Math.round(v.videoWidth * scale));
         var h = Math.max(1, Math.round(v.videoHeight * scale));
@@ -242,15 +253,30 @@
         c.width = w;
         c.height = h;
         c.getContext('2d').drawImage(v, 0, 0, w, h);
-        v.setAttribute('poster', c.toDataURL('image/jpeg', 0.78));
+        var dataURL = c.toDataURL('image/jpeg', 0.78);
+
+        var parent = v.parentNode;
+        if (!parent) return;
+        var parentRect = parent.getBoundingClientRect();
+        var vRect = v.getBoundingClientRect();
+
+        var img = document.createElement('img');
+        img.src = dataURL;
+        img.className = FREEZE_CLASS;
+        img.style.left = (vRect.left - parentRect.left) + 'px';
+        img.style.top = (vRect.top - parentRect.top) + 'px';
+        img.style.width = vRect.width + 'px';
+        img.style.height = vRect.height + 'px';
+
+        parent.appendChild(img);
       } catch (e) {
-        // Tainted canvas / unsupported codec — silently skip.
+        v.__siteFrozen = false;
       }
     }
 
     function freezeAll() {
       var videos = document.querySelectorAll('video');
-      for (var i = 0; i < videos.length; i++) captureCurrentFrame(videos[i]);
+      for (var i = 0; i < videos.length; i++) freezeOne(videos[i]);
     }
 
     function isInternalLink(node) {
@@ -269,6 +295,28 @@
     document.addEventListener('click', function (e) {
       if (isInternalLink(e.target)) freezeAll();
     }, true);
+
+    // When the browser restores this page from BFCache (back/forward), strip
+    // out any leftover freeze overlays from the previous departure and make
+    // sure autoplay videos start playing again.
+    window.addEventListener('pageshow', function (e) {
+      if (!e.persisted) return;
+      var overlays = document.querySelectorAll('.' + FREEZE_CLASS);
+      for (var i = 0; i < overlays.length; i++) overlays[i].remove();
+      var videos = document.querySelectorAll('video');
+      for (var j = 0; j < videos.length; j++) {
+        var v = videos[j];
+        v.__siteFrozen = false;
+        // Clear any stale poster from a previous build of this code.
+        if (v.hasAttribute('poster') && /^data:/.test(v.getAttribute('poster'))) {
+          v.removeAttribute('poster');
+        }
+        if (v.autoplay && v.paused) {
+          var p = v.play();
+          if (p && typeof p.catch === 'function') p.catch(function () {});
+        }
+      }
+    });
   }
 
   function boot() {
