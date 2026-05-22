@@ -106,6 +106,12 @@
       var done = function () {
         el.style.opacity = '1';
         el.removeAttribute('data-lazy');
+        // If the video happens to be far below the viewport when its first
+        // frame becomes available, don't let autoplay kick in — the
+        // visibility observer will resume it when it scrolls into view.
+        if (!isNearViewport(el)) {
+          try { el.pause(); } catch (e) { /* noop */ }
+        }
         resolve();
       };
       // Move on as soon as a frame is renderable so a slow video doesn't
@@ -178,11 +184,97 @@
 
     window.addEventListener('scroll', reprioritise, { passive: true });
     window.addEventListener('resize', reprioritise, { passive: true });
+
+    // Pause out-of-view videos so the browser doesn't have to keep dozens of
+    // hardware decoders / decoded frame buffers alive at once. This is what
+    // was blowing up the page on heavy detail views: too many active <video>
+    // elements made the renderer process bail and the tab go white.
+    setupVideoVisibility();
+  }
+
+  function setupVideoVisibility() {
+    if (!('IntersectionObserver' in window)) return;
+    var videos = document.querySelectorAll('.detail_container video');
+    if (!videos.length) return;
+
+    var visible = new WeakSet();
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var v = entry.target;
+        if (entry.isIntersecting) {
+          visible.add(v);
+          // Only resume autoplay videos; never start one the user paused
+          // manually (none in this site, but defensive).
+          if (v.autoplay && v.paused && v.readyState >= 2) {
+            var p = v.play();
+            if (p && typeof p.catch === 'function') p.catch(function () {});
+          }
+        } else {
+          visible.delete(v);
+          if (!v.paused) {
+            try { v.pause(); } catch (e) { /* noop */ }
+          }
+        }
+      });
+    }, { rootMargin: '200px 0px', threshold: 0.01 });
+
+    videos.forEach(function (v) { io.observe(v); });
+  }
+
+  // The moment the user commits to a navigation (pointerdown / click on a
+  // same-origin link), capture the frame each <video> is currently showing
+  // and stamp it onto the element as `poster`. If the browser later releases
+  // the decoded video buffer mid-navigation, the poster — the exact frame
+  // the user was looking at — fills in, so the thumbnail/cover appears to
+  // freeze in place rather than disappear or rewind to its first frame.
+  function freezeVideoFramesOnNavigation() {
+    function captureCurrentFrame(v) {
+      if (!v || v.readyState < 2) return;
+      if (!v.videoWidth || !v.videoHeight) return;
+      try {
+        // Downscale for snappier encoding; thumbnails are small on screen and
+        // a poster only ever appears for a fraction of a second.
+        var scale = 0.5;
+        var w = Math.max(1, Math.round(v.videoWidth * scale));
+        var h = Math.max(1, Math.round(v.videoHeight * scale));
+        var c = document.createElement('canvas');
+        c.width = w;
+        c.height = h;
+        c.getContext('2d').drawImage(v, 0, 0, w, h);
+        v.setAttribute('poster', c.toDataURL('image/jpeg', 0.78));
+      } catch (e) {
+        // Tainted canvas / unsupported codec — silently skip.
+      }
+    }
+
+    function freezeAll() {
+      var videos = document.querySelectorAll('video');
+      for (var i = 0; i < videos.length; i++) captureCurrentFrame(videos[i]);
+    }
+
+    function isInternalLink(node) {
+      var a = node && node.closest && node.closest('a[href]');
+      if (!a) return false;
+      if (a.target && a.target !== '_self') return false;
+      try {
+        return new URL(a.href).origin === location.origin;
+      } catch (e) { return false; }
+    }
+
+    document.addEventListener('pointerdown', function (e) {
+      if (isInternalLink(e.target)) freezeAll();
+    }, true);
+    // Backup for keyboard activation (Tab + Enter) which skips pointerdown.
+    document.addEventListener('click', function (e) {
+      if (isInternalLink(e.target)) freezeAll();
+    }, true);
   }
 
   function boot() {
     if (isListPage) initListPage();
     if (isDetailPage) initDetailPage();
+    freezeVideoFramesOnNavigation();
   }
 
   if (document.readyState === 'loading') {
