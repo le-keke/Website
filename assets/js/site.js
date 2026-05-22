@@ -243,34 +243,39 @@
       if (!v.videoWidth || !v.videoHeight) return;
       if (!videoIsOnScreen(v)) return;
       if (v.__siteFrozen) return;
-      v.__siteFrozen = true;
+
+      var parent = v.parentNode;
+      if (!parent) return;
 
       try {
-        var scale = 0.5;
-        var w = Math.max(1, Math.round(v.videoWidth * scale));
-        var h = Math.max(1, Math.round(v.videoHeight * scale));
-        var c = document.createElement('canvas');
-        c.width = w;
-        c.height = h;
-        c.getContext('2d').drawImage(v, 0, 0, w, h);
-        var dataURL = c.toDataURL('image/jpeg', 0.78);
-
-        var parent = v.parentNode;
-        if (!parent) return;
         var parentRect = parent.getBoundingClientRect();
         var vRect = v.getBoundingClientRect();
 
-        var img = document.createElement('img');
-        img.src = dataURL;
-        img.className = FREEZE_CLASS;
-        img.style.left = (vRect.left - parentRect.left) + 'px';
-        img.style.top = (vRect.top - parentRect.top) + 'px';
-        img.style.width = vRect.width + 'px';
-        img.style.height = vRect.height + 'px';
+        // Capture into a <canvas> we keep in the DOM — canvas pixels are
+        // synchronously drawn, no need to wait for an <img>'s data URL to
+        // decode. Renders consistently on Safari.
+        var canvas = document.createElement('canvas');
+        canvas.width = v.videoWidth;
+        canvas.height = v.videoHeight;
+        canvas.getContext('2d').drawImage(v, 0, 0);
 
-        parent.appendChild(img);
+        canvas.className = FREEZE_CLASS;
+        canvas.style.left = (vRect.left - parentRect.left) + 'px';
+        canvas.style.top = (vRect.top - parentRect.top) + 'px';
+        canvas.style.width = vRect.width + 'px';
+        canvas.style.height = vRect.height + 'px';
+
+        parent.appendChild(canvas);
+
+        // Hide the <video> itself so Safari's video compositor layer can't
+        // paint a blank frame on top of our overlay during the navigation
+        // transition. Visibility (not display) preserves the parent's
+        // layout box so neighbouring elements don't reflow.
+        v.style.visibility = 'hidden';
+        v.__siteFrozen = true;
       } catch (e) {
-        v.__siteFrozen = false;
+        // drawImage can throw on Safari if the video is in an unusual
+        // state — just skip, the worst case is the original disappear.
       }
     }
 
@@ -296,18 +301,14 @@
       if (isInternalLink(e.target)) freezeAll();
     }, true);
 
-    // When the browser restores this page from BFCache (back/forward), strip
-    // out any leftover freeze overlays from the previous departure and make
-    // sure autoplay videos start playing again.
-    window.addEventListener('pageshow', function (e) {
-      if (!e.persisted) return;
+    function restoreAll() {
       var overlays = document.querySelectorAll('.' + FREEZE_CLASS);
       for (var i = 0; i < overlays.length; i++) overlays[i].remove();
       var videos = document.querySelectorAll('video');
       for (var j = 0; j < videos.length; j++) {
         var v = videos[j];
         v.__siteFrozen = false;
-        // Clear any stale poster from a previous build of this code.
+        if (v.style && v.style.visibility === 'hidden') v.style.visibility = '';
         if (v.hasAttribute('poster') && /^data:/.test(v.getAttribute('poster'))) {
           v.removeAttribute('poster');
         }
@@ -315,6 +316,36 @@
           var p = v.play();
           if (p && typeof p.catch === 'function') p.catch(function () {});
         }
+      }
+    }
+
+    // When the browser restores this page from BFCache (back/forward), strip
+    // out any leftover freeze overlays from the previous departure and make
+    // sure autoplay videos start playing again.
+    window.addEventListener('pageshow', function (e) {
+      if (!e.persisted) return;
+      restoreAll();
+    });
+
+    // Safety net: if a pointerdown didn't actually result in navigation
+    // (e.g. the user released the pointer off the link, or the click was
+    // cancelled), put the videos back. We delay so that a real navigation
+    // — which fires `pagehide` shortly after `pointerup` — has time to
+    // cancel us first.
+    var restoreTimer = null;
+    function scheduleRestore() {
+      if (restoreTimer) clearTimeout(restoreTimer);
+      restoreTimer = setTimeout(function () {
+        restoreTimer = null;
+        restoreAll();
+      }, 600);
+    }
+    document.addEventListener('pointerup', scheduleRestore, true);
+    document.addEventListener('pointercancel', scheduleRestore, true);
+    window.addEventListener('pagehide', function () {
+      if (restoreTimer) {
+        clearTimeout(restoreTimer);
+        restoreTimer = null;
       }
     });
   }
