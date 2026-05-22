@@ -11,6 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
+        <script src="./assets/js/site.js" defer></script>
     </head>
     <body style="background-color: white;">
         <header class="header_container">
@@ -344,22 +345,5 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
-        <script>
-            // Render page as soon as DOM is ready
-            document.addEventListener('DOMContentLoaded', function() {
-                requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
-                        document.body.classList.add('loaded');
-                    });
-                });
-            });
-            
-            // Disable right-click context menu
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-        </script>
     </body>
 </html>

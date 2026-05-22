@@ -11,6 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../style.css">
+        <script src="../assets/js/site.js" defer></script>
     </head>
     <body>
         <header class="header_container">
@@ -23,7 +24,7 @@
 
         <div class="detail_container detail_bg_light light_mode">
             <div class="detail_cover" >
-                <img src=""/>
+                <img src="" decoding="async" fetchpriority="high"/>
             </div>
             <div class="detail_content">
                 <div class="detail_abstract">
@@ -48,36 +49,36 @@
                 </div>
 
                 <div class="detail_line_image light_mode_img_layout">
-                    <img src="../src/zermattern/logo_guide.png"/>
+                    <img src="../src/zermattern/logo_guide.png" loading="lazy" decoding="async"/>
                 </div>
                 <div class="detail_line_image light_mode_img_layout">
-                    <img src="../src/zermattern/type_guide.png"/>
+                    <img src="../src/zermattern/type_guide.png" loading="lazy" decoding="async"/>
                 </div>
 
                 <div class="detail_line_image_double">
                     <div class="line_double_img_left">
-                        <img src="../src/zermattern/typeface.png">
+                        <img src="../src/zermattern/typeface.png" loading="lazy" decoding="async">
                     </div>
                     <div class="line_double_img_right">
-                        <img src="../src/zermattern/colors.png">
+                        <img src="../src/zermattern/colors.png" loading="lazy" decoding="async">
                     </div>
                 </div>  
 
                 <div class="detail_line_image light_mode_img_layout">
-                    <img src="../src/zermattern/symbols.png"/>
+                    <img src="../src/zermattern/symbols.png" loading="lazy" decoding="async"/>
                 </div>
                 <div class="detail_line_image light_mode_img_layout">
-                    <img src="../src/zermattern/graph.png"/>
+                    <img src="../src/zermattern/graph.png" loading="lazy" decoding="async"/>
                 </div>
 
                 <div class="detail_line_image_double">
                     <div class="line_double_img_left">
-                        <video playsinline autoplay loop muted>
+                        <video playsinline autoplay loop muted preload="none">
                             <source src="../src/zermattern/wind.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="line_double_img_right">
-                        <video playsinline autoplay loop muted>
+                        <video playsinline autoplay loop muted preload="none">
                             <source src="../src/zermattern/compass.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -85,12 +86,12 @@
 
                 <div class="detail_line_image_double">
                     <div class="line_double_img_left">
-                        <video playsinline autoplay loop muted>
+                        <video playsinline autoplay loop muted preload="none">
                             <source src="../src/zermattern/altitude.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="line_double_img_right">
-                        <video playsinline autoplay loop muted>
+                        <video playsinline autoplay loop muted preload="none">
                         </video>
                     </div>
                 </div>  
@@ -122,63 +123,5 @@
                 <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
-        <script>
-            // Render on DOM ready, keep hero media sharp, defer below-the-fold media
-            document.addEventListener('DOMContentLoaded', function() {
-                var mediaNodes = document.querySelectorAll('.detail_cover img, .detail_cover video, .detail_content img, .detail_content video');
-                var videoObserver;
-                var supportsIO = 'IntersectionObserver' in window;
-
-                if (supportsIO) {
-                    videoObserver = new IntersectionObserver(function(entries) {
-                        entries.forEach(function(entry) {
-                            if (!entry.isIntersecting) return;
-                            var video = entry.target;
-                            if (video.getAttribute('preload') === 'none') {
-                                video.setAttribute('preload', 'metadata');
-                                video.load();
-                            }
-                            videoObserver.unobserve(video);
-                        });
-                    }, { rootMargin: '300px 0px' });
-                }
-
-                mediaNodes.forEach(function(node, index) {
-                    var isCoverMedia = !!node.closest('.detail_cover');
-
-                    if (node.tagName === 'IMG') {
-                        if (!node.hasAttribute('decoding')) node.setAttribute('decoding', 'async');
-                        if (!node.hasAttribute('loading')) node.setAttribute('loading', isCoverMedia ? 'eager' : 'lazy');
-                        if (isCoverMedia && index === 0 && !node.hasAttribute('fetchpriority')) {
-                            node.setAttribute('fetchpriority', 'high');
-                        }
-                        return;
-                    }
-
-                    if (node.tagName === 'VIDEO') {
-                        var isCriticalVideo = isCoverMedia || index === 0;
-                        if (!node.hasAttribute('preload')) {
-                            node.setAttribute('preload', isCriticalVideo ? 'metadata' : 'none');
-                        }
-                        if (!isCriticalVideo && videoObserver) {
-                            videoObserver.observe(node);
-                        }
-                    }
-                });
-
-                requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
-                        document.body.classList.add('loaded');
-                    });
-                });
-            });
-            
-            // Disable right-click context menu
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-        </script>
     </body>
 </html>

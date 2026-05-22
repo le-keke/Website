@@ -11,6 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../style.css">
+        <script src="../assets/js/site.js" defer></script>
     </head>
     <body>
         <header class="header_container">
@@ -23,7 +24,7 @@
 
         <div class="detail_container detail_bg_light light_mode">
             <div class="detail_cover">
-                <img src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/versionai_cover.png"/>
+                <img src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/versionai_cover.png" decoding="async" fetchpriority="high"/>
             </div>
             <div class="detail_content">
                 <div class="detail_abstract">
@@ -33,17 +34,19 @@
                             <p>Alibaba Group</p>
                         </div>
                         <div class="line_text_en">
-                            <h1>VersionAI Tmall - AI-Friendly Design System for AIGUI</h1>
+                            <h1>VersionAI Tmall - AI Friendly Design System for GenAI</h1>
                         </div>
                     </div>
                     <div class="detail_line spacing_bottom_lg">
                         <div class="line_annotation">
-                            <p>Digital Product Design</p>
+                            <p>GenAI Research
+                            </p>
                         </div>
                         <div class="line_text_en">
                             <p>Tmall Design is a design system developed specifically for the Tmall shopping app, one of the largest B2C e-commerce platforms in China.</p>
-                            <p>Unlike previous iterations, the version presented on this site is intended not only for human designers and developers, but more importantly for AI models. Its content structure, textual format, and communication logic have been translated to enable AI models to read and apply the specification. With AI assistance, users can reference this knowledge base to generate user interfaces that comply with Tmall’s design specification (1), as well as conduct design evaluation and Q&A (2).</p>
+                            <p>Unlike previous iterations, the version presented on this site is intended not only for human designers and developers, but more importantly for AI models. Its content structure, textual format, and communication logic have been translated to enable AI models to read and apply the specification. With AI assistance, users can reference this knowledge base to generate user interfaces that comply with Tmall's design specification (1), as well as conduct design evaluation and Q&A (2).</p>
                             <p>By enabling a more efficient and advanced mode of human-AI collaborative design, the system supports scenarios such as recomposing existing designs, making incremental adjustments, and creating new interfaces step by step.</p>
+                            <p><a href="https://tmall-design.com" target="_blank" rel="noopener noreferrer">tmall-design.com <span>→</span></a></p>
                         </div>
                     </div>    
                 </div>
@@ -52,46 +55,272 @@
 
         <div class="detail_container detail_bg_light light_mode">
             <div class="detail_content">   
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_research_img">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/purpose.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_text_en">
+                        <h5>Human-AI Co-design Product Interfaces as An Emerging Mode of Work</h5>
+                        <p>In the daily workflow of design teams, output targets generally fall into three categories: modules, single pages, and multi-page flows. Correspondingly, design approaches can be grouped into three modes: assembling existing components, modifying existing components, and creating new components. Among these, modifications to existing components can be further broken down into information adjustments, layout adjustments, and style adjustments.</p>                       
+                        <p>When mapped to the five major demand scenarios—core user journeys, content discovery channels, interactive products, marketing events, and B-end experience—a year-round analysis reveals a consistent pattern: within core journeys, discovery channels, and B-end experience, design tasks involving assembling or modifying existing components at the module or single-page level account for nearly 48% of all requests.</p>                       
+                        <p>This substantial volume of repetitive and structurally similar design work urgently calls for automated, AI-driven design-generation methods to significantly improve both efficiency and output quality. For enterprise design teams, the primary goal is to generate product interfaces that faithfully adhere to internal design standards, and this requires the same essential task: clarifying and constructing an AI-friendly design-knowledge system that can be connected to design tools or large models.</p>                       
+                    </div>    
+                </div>
+                
                 <div class="detail_line_image">
                     <div class="spacing_bottom_lg" style="position: relative; width: 100%; line-height: 0;">
-                        <video autoplay loop muted>
-                            <source src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/intro.mp4" type="video/mp4">
+                        <video autoplay loop muted preload="none" data-lazy>
+                            <source data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/intro.mp4" type="video/mp4">
                         </video>
                         <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.03); pointer-events: none;"></div>
                     </div>
                 </div>
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>The pattern of bricks on the facade of Dasheng Hutong ↑</p>
+                        <p>The VersionAI Tmall solution presentation for GenUI ↑</p>
                     </div>
                     <div class="line_text_en">
-                        <h5>Case: DJI Drone Single-Product Experience</h5>
-                        <p>The layout of the nearly 100 French-style houses in rows, the beige brushed cement on the facade, and the red raw bricks laid on the corners and eaves, it is clear that this "hutong" still has Art Deco soul inside. So the inheritance and interpretation of its architectural symbols are used in the brand design to reflect the continuation of the century-old lane culture.</p>
+                        <h5>Introducing VersionAI Tmall</h5>
+                        <p>By constructing the Design System Specification Knowledge Base and the Interface Generation Multi-Agents Workflow, an integrated, AI-friendly enterprise design system is formed. The system can be flexibly applied in IDE-based environments and agent-mode design tools via MCP or context injection. This comprehensive set of theory and practice offers broad applicability and can be adopted by enterprise teams across industries. VersionAI Tmall has already been implemented in real-world projects, resulting in significant improvements in interface design efficiency.</p>
+                    </div>
+                </div>
+                
+                <div class="detail_line_image">
+                    <img class="spacing_bottom_lg" data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/principle.png" loading="lazy" decoding="async"/>
+                </div>
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Generative UI Agent Structure ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <h5>Building Design System Knowledge for AI Understanding and Utilization</h5>
+                        <p>Interface generation is essentially a domain-specific intelligent system composed of multiple task-specific agents, operating within an enterprise-aligned design workflow, and driven by contextual reasoning and retrieval over Design System Specification Knowledge. These agents are organized into four primary task agents: intent recognition, knowledge retrieval, design synthesis and code generation.</p>
+                        <p>Design System Specification Knowledge acts as externally retrieved factual knowledge: through a Design-to-Code (D2C) transformation, design assets are converted into rule-based semantic facts, code-level symbolic facts, and the structured mappings between them, forming a structured Design Knowledge Base that the model can read, retrieve, and extract from.</p>
+                    </div>
+                </div>
+
+                <div class="detail_line_image">
+                    <img class="spacing_bottom_lg" data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/wiki.png" loading="lazy" decoding="async"/>
+                </div>
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Structural translation of design system specification knowledge ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <h5>Design System Specification Knowledge</h5>
+                        <p>Design System Specification Knowledge is composed of two categories of knowledge objects and three file types. The two categories of knowledge objects are Styles and Cases, where styles are further subdivided into four types: Elements, Layouts, Components, and Assets. Each category of knowledge object is associated with three file types: Semantic rules, Mapping schemas, and Code implementations.</p>
+                        <p>Semantic rules consist of textual descriptions covering an object's definition, styles, variables, usage, and constraints. They represent the foundational intellectual property that gives rise to experiential differentiation and are authored in Markdown format. Code implementations translate objects into executable and deployable symbolic facts, using the appropriate programming language as the representation format.</p>
+                        <p>Mapping schemas act as the central connective layer between semantic rules and code implementations. Rather than duplicating either, they provide object ID anchoring, constraint definitions, and precise code references. Within the workflow, they guide knowledge retrieval, solution construction, and code generation, enabling large language models to avoid traversing the entire knowledge corpus and reducing computational overhead.</p>
                     </div>
                 </div>
 
                 <div class="detail_line_image_double">
                     <div class="line_double_img_left">
-                        <img src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/home_new.png">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/color-1.png" loading="lazy" decoding="async">
                     </div>
                     <div class="line_double_img_right">
-                        <img src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/structure.png">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/color-2.png" loading="lazy" decoding="async">
                     </div>
                 </div>  
                 <div class="detail_line_image_double">
                     <div class="line_double_img_left">
-                        <img src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/color.png">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/color-3.png" loading="lazy" decoding="async">
                     </div>
                     <div class="line_double_img_right">
-                        <img src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/switch.png">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/color-4.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Element interpertation example: Color ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Element knowledge is divided into four irreducible units: color, typography, corner radius, and motion, which serve as the foundational dependencies for all design styles.</li>
+                            <li>Its semantic rules consist of element definitions, style composition, attribute variables (design tokens), mandatory rules, and functional usage.</li>
+                            <li>The mapping schema is composed of ID symbols, semantics (including name, definition, and description), rules_refs, implementations_refs, and constraints (such as usage scenarios, mandatory prohibitions, and other restrictions). This schema is automatically generated by AI in accordance with Schema-based prompting rules.</li>
+                            <li>Code implementations take the form of global styles (SCSS); these are automatically reconstructed from design artifacts and generated as code by IDE tooling through calls to the design software's MCP services.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/comp-1.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/comp-2.png" loading="lazy" decoding="async">
                     </div>
                 </div>  
                 <div class="detail_line_image_double">
                     <div class="line_double_img_left">
-                        <img src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/rule.png">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/comp-3.png" loading="lazy" decoding="async">
                     </div>
                     <div class="line_double_img_right">
-                        <img src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/prompt.png">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/comp-45.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Component interpertation example: Price ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Component knowledge is composed of units such as avatars, badges, asset slots, buttons, content streams, countdowns, coupons, filters, beacons, onboarding guides, carousels, inputs, messages, floating windows, dialogs, prices, product cards, progress bars, red packets, selectors, overlays, floating bars, switches, tab bars, tabs, text streams, tooltips, bubbles, and top bars. These components serve as critical reusable units for interface generation.</li>
+                            <li>The semantic rules for components consist of component definitions, style composition, attribute variables, component states (interaction and visual), mandatory rules, and functional usage.</li>
+                            <li>Building upon the existing mapping schema structure, component mapping schemas additionally introduce a properties schema (props schema), which corresponds to the attributes required by each component in the page-level component structure schema generated during the solution design stage.</li>
+                            <li>Code implementations are realized as component structures (TSX) and component styles (SCSS) within a React-based technology stack.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/asset-1.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/asset-2.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/assets-3.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/assets-4.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Asset interpertation example: Icon ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
+                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
+                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
+                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/page-1.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/page-2.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Page interpertation example: Shopping Feed Page ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Page semantic rules consist of page definition, target users, naming conventions, structural hierarchy, page states (interaction and visual), mandatory rules, and functional usage. Page knowledge does not require code implementations; instead, it is composed by the LLM through combining component, asset, and element code.</li>
+                            <li>The mapping schema consists of ID symbols, semantics (name, definition, description), rules, structure, and constraints (usage scenarios, mandatory prohibitions, and others).</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="detail_line_image">
+                    <img class="spacing_bottom_lg" data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/workflow.png" loading="lazy" decoding="async"/>
+                </div>
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Structural translation of design system specification knowledge ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <h5>Design System Specification Knowledge</h5>
+                        <p>Design System Specification Knowledge is composed of two categories of knowledge objects and three file types. The two categories of knowledge objects are Styles and Cases, where styles are further subdivided into four types: Elements, Layouts, Components, and Assets. Each category of knowledge object is associated with three file types: Semantic rules, Mapping schemas, and Code implementations.</p>
+                        <p>Semantic rules consist of textual descriptions covering an object's definition, styles, variables, usage, and constraints. They represent the foundational intellectual property that gives rise to experiential differentiation and are authored in Markdown format. Code implementations translate objects into executable and deployable symbolic facts, using the appropriate programming language as the representation format.</p>
+                        <p>Mapping schemas act as the central connective layer between semantic rules and code implementations. Rather than duplicating either, they provide object ID anchoring, constraint definitions, and precise code references. Within the workflow, they guide knowledge retrieval, solution construction, and code generation, enabling large language models to avoid traversing the entire knowledge corpus and reducing computational overhead.</p>
+                    </div>
+                </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/agent-1.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/agent-2.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/agent-3.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/agent-4.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Agent interpertation example: Intent Recognition ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
+                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
+                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
+                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/agent-5.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/agent-6.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/agent-7.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/agent-zip.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
+                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
+                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
+                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/home_new.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/structure.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/color.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/switch.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/rule.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/prompt.png" loading="lazy" decoding="async">
                     </div>
                 </div>  
                 <div class="detail_line spacing_bottom_lg">
@@ -99,18 +328,198 @@
                         <p>Screenshot of Single-Product Storytelling Mode ↑</p>
                     </div>
                     <div class="line_text_en">
-                        <p><span style="color: #666;">1: 3D animated display of the brand logo.<br>2: Demonstration of hovering handheld effect.<br>3: Demonstration of automatic obstacle avoidance.<br>4: Display of multi-product parameter comparison.</span></p>
+                        <h5>Design System Specification Knowledge</h5>
+                        <p>Design System Specification Knowledge is composed of two categories of knowledge objects and three file types. The two categories of knowledge objects are Styles and Cases, where styles are further subdivided into four types: Elements, Layouts, Components, and Assets. Each category of knowledge object is associated with three file types: Semantic rules, Mapping schemas, and Code implementations.</p>
+                        <ol style="color: #666;">
+                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
+                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
+                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
+                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                        </ol>
                     </div>
                 </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/ide_mcp.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/ide_chatbox.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/ide_copy.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/ide_injection.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
+                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
+                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
+                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                        </ol>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <div class="detail_content">
+        <div class="detail_container detail_bg_versionai_grey light_mode">
+            <div class="detail_content">
+                <div class="detail_line_image">
+                    <img class="spacing_top_xlg spacing_bottom_lg" data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/zip.png" loading="lazy" decoding="async"/>
+                </div>
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Single-Product Space Mode ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <h5>Storytelling Mode</h5>
+                        <p>This mode is suitable for displaying and interacting with individual items. By highlighting each product feature sequentially, users can understand the product from start to finish in a linear experience. For each feature, appropriate technical setups and interaction methods are selected to present the highlights in the most intuitive and immersive way.</p>
+                    </div>
+                </div>
+                <div class="detail_line_image">
+                    <img class="spacing_bottom_lg" data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/web-design.png" loading="lazy" decoding="async"/>
+                </div>
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Single-Product Space Mode ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <h5>Storytelling Mode</h5>
+                        <p>This mode is suitable for displaying and interacting with individual items. By highlighting each product feature sequentially, users can understand the product from start to finish in a linear experience. For each feature, appropriate technical setups and interaction methods are selected to present the highlights in the most intuitive and immersive way.</p>
+                    </div>
+                </div>
+                <div class="detail_line_image">
+                    <img class="spacing_bottom_lg" data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/responsive.png" loading="lazy" decoding="async"/>
+                </div>
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Single-Product Space Mode ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
+                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
+                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
+                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/front-footage.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/up-footage.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/lift-up-v.mp4" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/rotation-v.mp4" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <h5>Storytelling Mode</h5>
+                        <p>This mode is suitable for displaying and interacting with individual items. By highlighting each product feature sequentially, users can understand the product from start to finish in a linear experience. For each feature, appropriate technical setups and interaction methods are selected to present the highlights in the most intuitive and immersive way.</p>
+                        <ol style="color: #666;">
+                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
+                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
+                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
+                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/ui3.mp4" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/uipath.mp4" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/draw1.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/draw2.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
+                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
+                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
+                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/ae-1.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/ae-2.png" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line_image_double">
+                    <div class="line_double_img_left">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/ae-4.png" loading="lazy" decoding="async">
+                    </div>
+                    <div class="line_double_img_right">
+                        <img data-src="https://fwzntx71hl6v6inl.public.blob.vercel-storage.com/aigui/4k_30fps_refined.mp4" loading="lazy" decoding="async">
+                    </div>
+                </div>  
+                <div class="detail_line spacing_bottom_lg">
+                    <div class="line_img_annotation">
+                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                    </div>
+                    <div class="line_text_en">
+                        <ol style="color: #666;">
+                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
+                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
+                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
+                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                        </ol>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="detail_content detail_bg_versionai_grey">
             <div class="detail_end">
                 <div class="line_annotation">
                     <div class="end_role">
-                        <h4>Designer</h4>
+                        <h4>Design Lead</h4>
                         <p>Keke LE</p>
+                    </div>
+                    <div class="end_role">
+                        <h4>Design Team</h4>
+                        <p>MPID Multi-platform Innovation Design<br>Taobao Design Sub-unit</p>
                     </div>
                 </div>
                 <div class="end_copyright" style="color: #999999;">
@@ -119,7 +528,7 @@
             </div>
         </div>
 
-        <footer class="detail_footer_nav">
+        <footer class="detail_footer_nav detail_bg_versionai_grey">
                 <div class="nav_left">
                     <a href="../index.html"  class="in_light" style="margin-right: 50px;">Work</a>
                     <a href="../research.html" class="in_light">Research</a>
@@ -132,63 +541,5 @@
                 <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
-        <script>
-            // Render on DOM ready, keep hero media sharp, defer below-the-fold media
-            document.addEventListener('DOMContentLoaded', function() {
-                var mediaNodes = document.querySelectorAll('.detail_cover img, .detail_cover video, .detail_content img, .detail_content video');
-                var videoObserver;
-                var supportsIO = 'IntersectionObserver' in window;
-
-                if (supportsIO) {
-                    videoObserver = new IntersectionObserver(function(entries) {
-                        entries.forEach(function(entry) {
-                            if (!entry.isIntersecting) return;
-                            var video = entry.target;
-                            if (video.getAttribute('preload') === 'none') {
-                                video.setAttribute('preload', 'metadata');
-                                video.load();
-                            }
-                            videoObserver.unobserve(video);
-                        });
-                    }, { rootMargin: '300px 0px' });
-                }
-
-                mediaNodes.forEach(function(node, index) {
-                    var isCoverMedia = !!node.closest('.detail_cover');
-
-                    if (node.tagName === 'IMG') {
-                        if (!node.hasAttribute('decoding')) node.setAttribute('decoding', 'async');
-                        if (!node.hasAttribute('loading')) node.setAttribute('loading', isCoverMedia ? 'eager' : 'lazy');
-                        if (isCoverMedia && index === 0 && !node.hasAttribute('fetchpriority')) {
-                            node.setAttribute('fetchpriority', 'high');
-                        }
-                        return;
-                    }
-
-                    if (node.tagName === 'VIDEO') {
-                        var isCriticalVideo = isCoverMedia || index === 0;
-                        if (!node.hasAttribute('preload')) {
-                            node.setAttribute('preload', isCriticalVideo ? 'metadata' : 'none');
-                        }
-                        if (!isCriticalVideo && videoObserver) {
-                            videoObserver.observe(node);
-                        }
-                    }
-                });
-
-                requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
-                        document.body.classList.add('loaded');
-                    });
-                });
-            });
-            
-            // Disable right-click context menu
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-        </script>
     </body>
 </html>

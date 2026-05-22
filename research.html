@@ -11,6 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
+        <script src="./assets/js/site.js" defer></script>
     </head>
     <body style="background-color: white;">
         <header class="header_container">
@@ -25,6 +26,13 @@
             <div id="research_body">
                 <div id="research_item">
                     <div class="item_year">2026.2</div>
+                    <div class="item_title">
+                        <a href="research/aigui.html">Building an AI-Friendly Design System for AIGUI<span>Read →</span></a>
+                    </div>
+                     <div class="item_tag">Article, Alibaba Design</div>
+                </div>
+                <div id="research_item">
+                    <div class="item_year">2024.11</div>
                     <div class="item_title">
                         <a href="research/aigui.html">Building an AI-Friendly Design System for AIGUI<span>Read →</span></a>
                     </div>
@@ -118,48 +126,5 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
-        <script>
-            // Render page as soon as DOM is ready
-            document.addEventListener('DOMContentLoaded', function() {
-                requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
-                        document.body.classList.add('loaded');
-                    });
-                });
-
-                // Prefetch detail pages on intent (hover/touch/focus)
-                var warmed = {};
-                var pageLinks = document.querySelectorAll('#research_body a[href$=".html"]');
-
-                function warmPage(url) {
-                    if (!url || warmed[url] || url === window.location.href) return;
-                    if (url.indexOf(window.location.origin) !== 0) return;
-                    warmed[url] = true;
-
-                    var hint = document.createElement('link');
-                    hint.rel = 'prefetch';
-                    hint.as = 'document';
-                    hint.href = url;
-                    document.head.appendChild(hint);
-                }
-
-                pageLinks.forEach(function(link) {
-                    var href = link.getAttribute('href');
-                    if (!href) return;
-                    var url = new URL(href, window.location.href).href;
-
-                    link.addEventListener('mouseenter', function() { warmPage(url); }, { passive: true, once: true });
-                    link.addEventListener('focus', function() { warmPage(url); }, { passive: true, once: true });
-                    link.addEventListener('touchstart', function() { warmPage(url); }, { passive: true, once: true });
-                });
-            });
-            
-            // Disable right-click context menu
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                return false;
-            });
-        </script>
     </body>
 </html>

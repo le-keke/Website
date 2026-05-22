@@ -12,17 +12,25 @@ head, body {
   user-select: none;
 }
 
-/* Prevent FOUC and layout shift during load */
 body {
-  opacity: 0;
-  transition: opacity 0.1s;
   /* Prevent bounce scrolling on Safari */
   overscroll-behavior-y: none;
   -webkit-overflow-scrolling: touch;
 }
 
-body.loaded {
-  opacity: 1;
+/* Soft fade-in for media that is loaded progressively by site.js so that the
+   swap from empty placeholder to real bitmap doesn't look like a hard pop. */
+.detail_content img[data-src],
+.detail_content video[data-lazy],
+.detail_line_image img[data-src],
+.detail_line_image video[data-lazy] {
+  opacity: 0;
+}
+.detail_content img,
+.detail_content video,
+.detail_line_image img,
+.detail_line_image video {
+  transition: opacity 0.25s ease-out;
 }
 
 body::-webkit-scrollbar {
@@ -489,6 +497,11 @@ p,h1,h2,h3,h4,h5,h6 {
   margin: 0;
 }
 
+.detail_bg_versionai_grey {
+  background-color: #F5F6F7;
+  margin: 0;
+}
+
 .detail_bg_tbvp_dark {
   background-color: #5F5F5F;
   margin: 0;
@@ -683,7 +696,45 @@ p,h1,h2,h3,h4,h5,h6 {
   line-height: 1.4;
   letter-spacing: 0rem;
   margin-bottom: 0;
-  padding-left: 2px;
+  padding-left: 0px;
+}
+
+.line_text_en a {
+  color: #111111;
+  transition: all 0.2s cubic-bezier(.44,.43,.59,.6);
+}
+
+.line_text_en a:hover {
+  color: #666666;
+  transition: all 0.2s cubic-bezier(.44,.43,.59,.6);
+}
+
+.line_text_en a span {
+  color: #111111;
+  margin-left: 0;
+  transition: all 0.2s cubic-bezier(.44,.43,.59,.6);
+}
+
+.line_text_en a:hover span {
+  color: #666666;
+  margin-left: 3px;
+  transition: all 0.2s cubic-bezier(.44,.43,.59,.6);
+}
+
+.dark_mode .line_text_en a {
+  color: #dddddd;
+}
+
+.dark_mode .line_text_en a:hover {
+  color: #999999;
+}
+
+.dark_mode .line_text_en a span {
+  color: #dddddd;
+}
+
+.dark_mode .line_text_en a:hover span {
+  color: #999999;
 }
 
 .line_text_ch {
