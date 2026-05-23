@@ -204,22 +204,11 @@ p,h1,h2,h3,h4,h5,h6 {
 .thumbnail_video {
   height: calc(100% - 20px);
   margin-bottom: 20px;
-  position: relative;
 }
 
-.thumbnail_video video,
 .thumbnail_video img {
   height: 100%;
   width: auto;
-  object-fit: cover;
-}
-
-/* Static frame stamped over a <video> at navigation time so the browser can
-   never make the cover go blank during the transition. */
-.site_video_freeze {
-  position: absolute;
-  pointer-events: none;
-  z-index: 1;
   object-fit: cover;
 }
 
@@ -537,7 +526,6 @@ p,h1,h2,h3,h4,h5,h6 {
 
 .detail_cover {
   width: 100%;
-  position: relative;
 }
 
 .detail_cover video {
