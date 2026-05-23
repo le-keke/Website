@@ -207,7 +207,8 @@ p,h1,h2,h3,h4,h5,h6 {
   position: relative;
 }
 
-.thumbnail_video video {
+.thumbnail_video video,
+.thumbnail_video img {
   height: 100%;
   width: auto;
   object-fit: cover;
