@@ -229,13 +229,12 @@
                 </div>
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Structural translation of design system specification knowledge ↑</p>
+                        <p>Node orchestration ↑</p>
                     </div>
                     <div class="line_text_en">
-                        <h5>Design System Specification Knowledge</h5>
-                        <p>Design System Specification Knowledge is composed of two categories of knowledge objects and three file types. The two categories of knowledge objects are Styles and Cases, where styles are further subdivided into four types: Elements, Layouts, Components, and Assets. Each category of knowledge object is associated with three file types: Semantic rules, Mapping schemas, and Code implementations.</p>
-                        <p>Semantic rules consist of textual descriptions covering an object's definition, styles, variables, usage, and constraints. They represent the foundational intellectual property that gives rise to experiential differentiation and are authored in Markdown format. Code implementations translate objects into executable and deployable symbolic facts, using the appropriate programming language as the representation format.</p>
-                        <p>Mapping schemas act as the central connective layer between semantic rules and code implementations. Rather than duplicating either, they provide object ID anchoring, constraint definitions, and precise code references. Within the workflow, they guide knowledge retrieval, solution construction, and code generation, enabling large language models to avoid traversing the entire knowledge corpus and reducing computational overhead.</p>
+                        <h5>Multi-agent Workflow</h5>
+                        <p>Next, the workflow for interface design and generation is engineeried. A multi-agent, upstream-to-downstream collaborative process is, in essence, the definition and configuration of each sub-agent and its chaining logic.</p>
+                        <p>In this project, the workflow and agents are built within an IDE-based tool. The base model and memory use default settings; tools are either defaulted or require no configuration; the remaining items are defined explicitly. The prompt Markdown files include (but are not limited to) role definitions, task definitions, built-in workflow steps, input/output requirements, access and routing, and constraints.</p>
                     </div>
                 </div>
 
@@ -257,14 +256,14 @@
                 </div>  
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Agent interpertation example: Intent Recognition ↑</p>
+                        <p>Agent configuration (excerpt) ↑</p>
                     </div>
                     <div class="line_text_en">
                         <ol style="color: #666;">
-                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
-                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
-                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
-                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                            <li>Agent template: Each agent includes upstream inputs, a base model, memory, system prompts (role and task), a knowledge base (or database), tools (MCP, plugins), and downstream outputs. It is critical to ensure that access paths, object naming, and input/output contracts referenced in sub-agent prompts remain coherent and consistent.</li>
+                            <li>The intent recognition agent takes the user's query string as input (e.g., “Generate a new-product shopping-guide channel”). It outputs a knowledge retrieval requirements checklist, such as “requirement type (compositional reuse of existing modules), page type (Shopping Guide page), information structure (product cards), interaction constraints (filterable or not), content requirements (benefit/offer information), etc.”, and routes it to the next agent.</li>
+                            <li>The knowledge retrieval agent takes the requirements checklist file as input. It queries, filters, and retrieves the corresponding content from the Design System Specification Knowledge Base, and outputs a knowledge outline—i.e., it fills in the knowledge items referenced in the checklist—then routes to the next agent.</li>
+                            <li>The design synthesis agent takes the knowledge outline file as input. It makes design decisions and produces outline instructions for page structure, component types and properties, style elements, interaction patterns, and data/content requirements. It outputs a solution design schema/outline and routes to the next agent.</li>
                         </ol>
                     </div>
                 </div>
@@ -287,14 +286,14 @@
                 </div>  
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                        <p>Agent configuration (excerpt) ↑</p>
                     </div>
                     <div class="line_text_en">
                         <ol style="color: #666;">
-                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
-                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
-                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
-                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                            <li>Design synthesis output (excerpt)</li>
+                            <li>The code generation agent takes the solution design outline as input. It maps to the outline files in the knowledge base and invokes the corresponding code, producing interface code files as output; users can preview the generated results.</li>
+                            <li>Final interface code generation output (excerpt)</li>
+                            <li>An integrated system package—combining a Design System Specification Knowledge Base with an interface generation workflow engineering pipeline—completes the construction of AI-friendly enterprise internal interface design knowledge. It can be flexibly applied to IDE-based generation environments and agent-mode environments in design tools, via MCP or via context injection.</li>
                         </ol>
                     </div>
                 </div>
@@ -325,16 +324,19 @@
                 </div>  
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Screenshot of Single-Product Storytelling Mode ↑</p>
+                        <p>VersionAI Tmall official website ↑</p>
                     </div>
                     <div class="line_text_en">
-                        <h5>Design System Specification Knowledge</h5>
-                        <p>Design System Specification Knowledge is composed of two categories of knowledge objects and three file types. The two categories of knowledge objects are Styles and Cases, where styles are further subdivided into four types: Elements, Layouts, Components, and Assets. Each category of knowledge object is associated with three file types: Semantic rules, Mapping schemas, and Code implementations.</p>
+                        <h5>Interface generation in practice via the VersionAI Tmall website</h5>
+                        <p>VersionAI Tmall is an AI-oriented design specification website. It contains all the design knowledge described above and helps users generate user interfaces that conform to the Tmall design specification, conduct design reviews, and resolve Q&A. The site’s page structure is consistent with the design system knowledge structure, organized as a tree navigation of styles, cases, and their sub-unit knowledge modules.</p>
+                        <p>Each knowledge module page can switch between rules for humans and rules for AI, and supports copying or downloading knowledge snippets. A deployment page guides users on how to invoke the specification for interface generation.</p>
                         <ol style="color: #666;">
-                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
-                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
-                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
-                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                            <li>Website homepage</li>
+                            <li>Sidebar consistent with the design system knowledge structure</li>
+                            <li>Knowledge modules</li>
+                            <li>Switch to AI-facing rules</li>
+                            <li>Human-friendly semantic rules</li>
+                            <li>AI-friendly semantic rules</li>
                         </ol>
                     </div>
                 </div>
@@ -357,14 +359,16 @@
                 </div>  
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                        <p>How it works ↑</p>
                     </div>
                     <div class="line_text_en">
+                        <p>This website provides two ways for users to invoke the Tmall design specification within AI tools: an MCP Server and context injection. By one-click configuring the MCP server in an IDE tool, the system automatically depends on the Tmall design knowledge base. The MCP-wrapped APIs perform automated processing and return results based on the user’s natural-language instructions; supported capabilities include (but are not limited to) Search and running workflows (runWorkflow).</p>
+                        <p>Alternatively, users can click Copy or Download on a specific knowledge module page to obtain a snippet package containing semantic rules, mapping schema, and code implementations, and paste it directly into the instruction input box for local edits and generation.</p> 
                         <ol style="color: #666;">
-                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
-                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
-                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
-                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                            <li>Configure the tmall-design MCP in the IDE</li>
+                            <li>Enter interface-generation instructions in natural language</li>
+                            <li>Copy or download a knowledge unit</li>
+                            <li>Inject the unit into context</li>
                         </ol>
                     </div>
                 </div>
@@ -379,11 +383,16 @@
                 </div>
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Single-Product Space Mode ↑</p>
+                        <p>Project planning roadmap ↑</p>
                     </div>
                     <div class="line_text_en">
-                        <h5>Storytelling Mode</h5>
-                        <p>This mode is suitable for displaying and interacting with individual items. By highlighting each product feature sequentially, users can understand the product from start to finish in a linear experience. For each feature, appropriate technical setups and interaction methods are selected to present the highlights in the most intuitive and immersive way.</p>
+                        <h5>A design engineering project created entirely by designers</h5>
+                        <p>This project also marked our first deep adoption of AI coding tools to realize the translation of Tmall's design knowledge, the packaging of MCP services, and the creation of a brand-new AI-friendly design guideline website. In practice, the work was divided into three separate engineering packages:</p>
+                        <ol style="color: #666;">
+                            <li>First, the design knowledge of VersionAI Tmall was reconstructed in Cursor through a Figma MCP-based workflow, restoring the original design language and component behaviors while systematically building a complete structured knowledge base.</li>
+                            <li>Second, the VersionAI Tmall package was encapsulated into an MCP service through Cursor, then published to the npm platform with generated invocation instructions for developers and AI workflows.</li>
+                            <li>Finally, a completely new design official website was designed in Figma, and again implemented in Cursor via the Figma MCP workflow. The project was then published to GitHub and deployed on Vercel.</li>
+                        </ol>
                     </div>
                 </div>
                 <div class="detail_line_image">
@@ -391,11 +400,11 @@
                 </div>
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Single-Product Space Mode ↑</p>
+                        <p>Website design ↑</p>
                     </div>
                     <div class="line_text_en">
-                        <h5>Storytelling Mode</h5>
-                        <p>This mode is suitable for displaying and interacting with individual items. By highlighting each product feature sequentially, users can understand the product from start to finish in a linear experience. For each feature, appropriate technical setups and interaction methods are selected to present the highlights in the most intuitive and immersive way.</p>
+                        <p>In the age of AI, open access has become more valuable than ever before. If data and knowledge cannot be retrieved, invoked, or learned by AI systems, it is almost like remaining isolated in an era of globalization. Since Tmall has never had an official design guideline website like many of the world’s leading products and platforms, it has now become essential to create one. More importantly, this should be among the first generation of design websites built specifically for AI consumption.</p>
+                        <p>The official website design of the Tmall app also follows its own design philosophy, “White Paper.” <span style="color: #666;">The system is shaped by the “White Paper” design philosophy, which emphasizes presenting content as if it leaps forth from a blank canvas, removing any elements that may cause distraction or confusion.</span></p>
                     </div>
                 </div>
                 <div class="detail_line_image">
@@ -403,15 +412,10 @@
                 </div>
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Single-Product Space Mode ↑</p>
+                        <p>Responsive layouts ↑</p>
                     </div>
                     <div class="line_text_en">
-                        <ol style="color: #666;">
-                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
-                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
-                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
-                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
-                        </ol>
+                        <p>The website structure consists of Home, Deploy, Style, Case, Blog, and About. Each subpage is composed of a sidebar navigation system, a specification operation panel (including rule and prompt switching, as well as copy and download controls for specifications), the main content area, and an index panel. Responsive layouts were also designed and implemented for different device screen sizes.</p>
                     </div>
                 </div>
 
@@ -437,16 +441,16 @@
                 </div>  
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                        <p>AI-collaborative intro-video design ↑</p>
                     </div>
                     <div class="line_text_en">
-                        <h5>Storytelling Mode</h5>
-                        <p>This mode is suitable for displaying and interacting with individual items. By highlighting each product feature sequentially, users can understand the product from start to finish in a linear experience. For each feature, appropriate technical setups and interaction methods are selected to present the highlights in the most intuitive and immersive way.</p>
+                        <h5>Manifesto Video Concept</h5>
+                        <p>From human design to machine generation, from a single subject to dual subjects: the computer screen serves both as the medium for interface design operations and as the surface of presentation — one screen, two sides. Inside the screen is the machine, outside the screen is the human. The machine draws, the human observes. The black-box process of AI-generated interfaces and the human-machine relationship are visualized across the thin boundary of the screen.</p>
                         <ol style="color: #666;">
-                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
-                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
-                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
-                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                            <li>Designed the foundational mechanical pen form and created a white model in Blender, then used the NanoBanana image model to generate materials and refined visual details in Adobe Photoshop, producing the front-view asset.</li>
+                            <li>Rotated the mechanical pen forward along the X-axis in Blender and repeated the same workflow to produce the lifted-view asset.</li>
+                            <li>Used the front-view asset and lifted-view asset as the starting and ending keyframes respectively, then generated an animation with the Kling AI video model to create the lifting animation asset.</li>
+                            <li>Used the Kling AI video model to generate a 360-degree rotation animation from the lifted-view asset, producing the rotation animation asset.</li>
                         </ol>
                     </div>
                 </div>
@@ -473,14 +477,14 @@
                 </div>  
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                        <p>UI drawing trajectory capture ↑</p>
                     </div>
                     <div class="line_text_en">
                         <ol style="color: #666;">
-                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
-                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
-                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
-                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                            <li>Selected three representative Tmall UI components in Figma.</li>
+                            <li>Created single-line vector paths for each component in Adobe Illustrator.</li>
+                            <li>Imported the paths into the iDraw mechanical plotter and executed the trajectory-based drawing process.</li>
+                            <li>Used an Apple iPhone to record the complete drawing process from a front-facing perspective aligned with the iDraw mechanical plotter.</li>
                         </ol>
                     </div>
                 </div>
@@ -505,14 +509,14 @@
                 </div>  
                 <div class="detail_line spacing_bottom_lg">
                     <div class="line_img_annotation">
-                        <p>Agent interpertation example: Knowledge Retrieval ↑</p>
+                        <p>Compositing and post-production ↑</p>
                     </div>
                     <div class="line_text_en">
                         <ol style="color: #666;">
-                            <li>Asset knowledge consists of units such as images, icons, logos, and tags, serving as the primary material sources for page content population.</li>
-                            <li>The semantic rules for assets include asset definitions, attribute variables, mandatory rules, and functional usage.</li>
-                            <li>The mapping schema for assets follows the same template as that used for elements. Depending on the specific asset type, asset knowledge may or may not require code implementations. For example, icons do require code implementations, whereas images typically do not.</li>
-                            <li>In such cases, the implementations take the form of source asset files (e.g., SVG or PNG) with naming conventions consistent with those defined in the semantic rules.</li>
+                            <li>Imported the recorded footage into Adobe After Effects and applied motion tracking to the pen tip. The previously generated front-view asset was bound to the drawing trajectory, the lifted-view asset was used for the pen-down and pen-lift animations of each UI stroke, and the rotation asset was used for large-scale translational movement animations of the mechanical pen.</li>
+                            <li>Imported the single-line UI paths into Adobe After Effects, then aligned the keyframes of each Path Trim animation stroke with the motion-tracked trajectory from the previous step.</li>
+                            <li>Used Google Gemini to generate expressions for the randomized UI dissolution effect after the drawing sequence was completed.</li>
+                            <li>Composited and rendered the final video output.</li>
                         </ol>
                     </div>
                 </div>
@@ -530,6 +534,12 @@
                     <div class="end_role">
                         <h4>Design Team</h4>
                         <p>MPID Multi-platform Innovation Design<br>Taobao Design Sub-unit</p>
+                    </div>
+                    <div class="end_role">
+                        <h4>Published</h4>
+                        <p><a href="https://tmall-design.com" target="_blank" rel="noopener noreferrer">tmall-design.com <span>→</span></a></p>
+                        <p><a href="https://tmall-design.com/#blog/building-design-wiki-for-aigui" target="_blank" rel="noopener noreferrer">Building design-wiki for AIGUI <span>→</span></a></p>
+                        <p><a href="https://tmall-design.com/#blog/ai-collaborative-intro-video-design" target="_blank" rel="noopener noreferrer">AI-collaborative intro-video design <span>→</span></a></p>
                     </div>
                 </div>
                 <div class="end_copyright" style="color: #999999;">
