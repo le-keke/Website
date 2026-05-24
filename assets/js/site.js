@@ -3,11 +3,12 @@
  *
  * - List pages (index / research): hover/touch/focus prefetch so the next
  *   document is in cache by the time the user actually clicks.
- * - Detail pages: a concurrent download queue that fires the moment the page
- *   parses. Items start in document order (top to bottom) and the queue
- *   adapts to the user's scroll position by bumping near-viewport items to
- *   the front, so scrolling fast doesn't make the user wait. Concurrency is
- *   tuned from the navigator's effective network type when available.
+ * - Detail pages: IntersectionObserver-driven lazy loading with a wide
+ *   preload margin (~2 screens above and below the viewport). Whatever
+ *   enters that area starts loading; once loaded it stays loaded. The
+ *   browser's own connection pool handles concurrency. No global queue,
+ *   no in-flight slot starvation, no penalty for scrolling back to revisit
+ *   earlier sections.
  */
 (function () {
   'use strict';
@@ -46,25 +47,6 @@
       link.addEventListener('focus', trigger, { passive: true });
       link.addEventListener('touchstart', trigger, { passive: true });
     });
-  }
-
-  function pickConcurrency() {
-    try {
-      var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-      if (c && c.saveData) return 2;
-      if (c && c.effectiveType) {
-        switch (c.effectiveType) {
-          case 'slow-2g':
-          case '2g':
-            return 2;
-          case '3g':
-            return 4;
-          case '4g':
-            return 8;
-        }
-      }
-    } catch (e) { /* noop */ }
-    return 6;
   }
 
   function isNearViewport(el) {
@@ -129,66 +111,37 @@
     );
     if (!targets.length) return;
 
-    var queue = targets.slice();
-    var inFlight = 0;
-    var started = new WeakSet();
-    var concurrency = pickConcurrency();
-
-    function pump() {
-      while (inFlight < concurrency && queue.length) {
-        var el = queue.shift();
-        if (started.has(el)) continue;
-        started.add(el);
-        inFlight++;
-        var task = (el.tagName === 'IMG') ? loadImage(el) : loadVideo(el);
-        task.then(function () {
-          inFlight--;
-          pump();
-        }, function () {
-          inFlight--;
-          pump();
-        });
-      }
+    function startLoad(el) {
+      if (el.tagName === 'IMG') loadImage(el);
+      else loadVideo(el);
     }
 
-    pump();
+    // Old browser fallback: no IO available, just load everything.
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach(startLoad);
+      setupVideoVisibility();
+      return;
+    }
 
-    // Scroll-driven priority: sort the entire pending queue by distance to
-    // the current viewport so the very next slot that frees always picks
-    // the element closest to where the user is looking, regardless of how
-    // far it sits in the document. Items already scrolled past are
-    // deprioritised but kept (in case the user scrolls back).
-    var scheduled = false;
-    function reprioritise() {
-      if (scheduled) return;
-      scheduled = true;
-      requestAnimationFrame(function () {
-        scheduled = false;
-        if (queue.length < 2) return;
-        var vh = window.innerHeight || 800;
-        queue.sort(function (a, b) {
-          return scoreFor(a, vh) - scoreFor(b, vh);
-        });
-        pump();
+    // Generous preload margin (~2 screens above and below). The browser's
+    // own request scheduler handles concurrency, which is smarter than a
+    // hand-rolled queue and never gets stuck on slow in-flight requests.
+    // Re-entering the margin (scrolling back up) re-triggers load for
+    // anything still pending, so a fast scroll-past never leaves a blank.
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        io.unobserve(el);
+        startLoad(el);
       });
-    }
+    }, { rootMargin: '2000px 0px', threshold: 0.01 });
 
-    function scoreFor(el, vh) {
-      var rect = el.getBoundingClientRect();
-      // Inside or below viewport: distance to top of viewport, never below 0.
-      if (rect.bottom > 0) return Math.max(0, rect.top);
-      // Already scrolled past — heavily deprioritised but still queued so a
-      // back-scroll won't show an empty box.
-      return Math.abs(rect.bottom) + 100000;
-    }
+    targets.forEach(function (el) { io.observe(el); });
 
-    window.addEventListener('scroll', reprioritise, { passive: true });
-    window.addEventListener('resize', reprioritise, { passive: true });
-
-    // Pause out-of-view videos so the browser doesn't have to keep dozens of
-    // hardware decoders / decoded frame buffers alive at once. This is what
-    // was blowing up the page on heavy detail views: too many active <video>
-    // elements made the renderer process bail and the tab go white.
+    // Pause out-of-view videos so the browser doesn't have to keep dozens
+    // of hardware decoders / decoded frame buffers alive at once. This is
+    // what was making heavy detail views go white on long scrolls.
     setupVideoVisibility();
   }
 
