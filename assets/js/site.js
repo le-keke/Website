@@ -147,27 +147,28 @@
 
   function setupVideoVisibility() {
     if (!('IntersectionObserver' in window)) return;
-    var videos = document.querySelectorAll('.detail_container video');
+    // All autoplay videos on this page, regardless of whether they live
+    // inside a .detail_container or sit between sections as a full-width
+    // standalone block (e.g. taobaovp's big videos). The previous
+    // .detail_container scope silently dropped the latter.
+    var videos = document.querySelectorAll('video[autoplay]');
     if (!videos.length) return;
-
-    var visible = new WeakSet();
 
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         var v = entry.target;
         if (entry.isIntersecting) {
-          visible.add(v);
-          // Only resume autoplay videos; never start one the user paused
-          // manually (none in this site, but defensive).
-          if (v.autoplay && v.paused && v.readyState >= 2) {
+          // Don't gate on readyState here — play() is async and will buffer
+          // first then start playback if the video hasn't loaded enough.
+          // Gating used to leave slow-loading videos stuck on frame 0 after
+          // the visibility observer's one-shot initial fire missed the
+          // readiness window.
+          if (v.paused) {
             var p = v.play();
             if (p && typeof p.catch === 'function') p.catch(function () {});
           }
-        } else {
-          visible.delete(v);
-          if (!v.paused) {
-            try { v.pause(); } catch (e) { /* noop */ }
-          }
+        } else if (!v.paused) {
+          try { v.pause(); } catch (e) { /* noop */ }
         }
       });
     }, { rootMargin: '200px 0px', threshold: 0.01 });
