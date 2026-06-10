@@ -71,6 +71,11 @@
       if (isNearViewport(el) && !el.hasAttribute('fetchpriority')) {
         el.setAttribute('fetchpriority', 'high');
       }
+      // Once JS takes over loading strategy, avoid the browser deferring
+      // this request again because of a stale loading="lazy".
+      if (el.getAttribute('loading') === 'lazy') {
+        el.setAttribute('loading', 'eager');
+      }
       el.setAttribute('src', src);
       el.removeAttribute('data-src');
     });
@@ -111,14 +116,61 @@
     );
     if (!targets.length) return;
 
-    function startLoad(el) {
-      if (el.tagName === 'IMG') loadImage(el);
-      else loadVideo(el);
+    function startLoad(el, opts) {
+      if (!el || el.__lazyStarted) return Promise.resolve();
+      el.__lazyStarted = true;
+
+      if (opts && opts.background && el.tagName === 'IMG') {
+        // Background stage should not steal bandwidth from nearby content.
+        if (!el.hasAttribute('fetchpriority')) {
+          el.setAttribute('fetchpriority', 'low');
+        }
+      }
+
+      if (el.tagName === 'IMG') return loadImage(el);
+      return loadVideo(el);
+    }
+
+    function distanceToViewport(el) {
+      var rect = el.getBoundingClientRect();
+      var vh = window.innerHeight || 800;
+      if (rect.bottom < 0) return Math.abs(rect.bottom);
+      if (rect.top > vh) return rect.top - vh;
+      return 0;
+    }
+
+    function loadInBatches(nodes, batchSize, opts) {
+      var index = 0;
+      function nextBatch() {
+        if (index >= nodes.length) return Promise.resolve();
+        var batch = nodes.slice(index, index + batchSize);
+        index += batchSize;
+        return Promise.allSettled(batch.map(function (el) {
+          return startLoad(el, opts);
+        })).then(nextBatch);
+      }
+      return nextBatch();
+    }
+
+    function startBackgroundDrain() {
+      var pending = targets.filter(function (el) {
+        return !el.__lazyStarted;
+      });
+      if (!pending.length) return;
+
+      pending.sort(function (a, b) {
+        return distanceToViewport(a) - distanceToViewport(b);
+      });
+
+      // Load remaining assets progressively after near-viewport content is
+      // underway/completed. This guarantees the page keeps filling even if
+      // the user pauses at a fixed scroll position.
+      loadInBatches(pending, 3, { background: true });
     }
 
     // Old browser fallback: no IO available, just load everything.
     if (!('IntersectionObserver' in window)) {
-      targets.forEach(startLoad);
+      targets.forEach(function (el) { startLoad(el); });
       setupVideoVisibility();
       return;
     }
@@ -138,6 +190,18 @@
     }, { rootMargin: '2000px 0px', threshold: 0.01 });
 
     targets.forEach(function (el) { io.observe(el); });
+
+    var vh = window.innerHeight || 800;
+    var priorityTargets = targets.filter(function (el) {
+      var rect = el.getBoundingClientRect();
+      return rect.bottom > -vh && rect.top < vh * 2;
+    });
+
+    Promise.allSettled(priorityTargets.map(function (el) {
+      return startLoad(el);
+    })).then(startBackgroundDrain);
+    // Never let a slow near-viewport video block background fill forever.
+    setTimeout(startBackgroundDrain, 1200);
 
     // Pause out-of-view videos so the browser doesn't have to keep dozens
     // of hardware decoders / decoded frame buffers alive at once. This is
